@@ -14,15 +14,26 @@ class Antrian extends Model
                             'tempat_lahir',
                             'tanggal_lahir',
                             'alamat',
+                            'domisili',
                             'pekerjaan',
                             'tempat_kerja',
                             'no_hp',
                             'vaksin_ke',
+                            'tujuan',
                             'no_tiket',
                             'tanggal_vaksin_pertama',
+                            'faskes_vaksin_pertama',
                             'faskes',
                             'status',
+                            'status_hapus',
                             'tanggal',
                             'no_urut',
                             'user_id' ];
+
+
+    public function faskes()
+    {
+        return $this->belongsTo('App\Models\Faskes');
+    }
+
 }

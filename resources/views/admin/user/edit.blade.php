@@ -38,7 +38,7 @@
 							<input type="email" class="form-control" placeholder="Email" name="email" value="{{ $user->email }}" >
 						</div>
 					</div>
-<!-- 					
+					
 					<div class="form-group @if ($errors->has('password')) has-error @endif">
 						<label class="col-sm-2 control-label">{{ __('Password') }}</label>
 						<div class="col-sm-10">
@@ -54,7 +54,7 @@
 							<input type="password" class="form-control" placeholder="Konfirmasi Password" name="password_confirmation" >
 						</div>
 					</div>
-					 -->
+					
 					<div class="form-group @if ($errors->has('group')) has-error @endif">
 						<label class="col-sm-2 control-label">{{ __('Group') }}</label>
 						<div class="col-sm-10">
@@ -62,6 +62,21 @@
 							<select class="form-control" name="group">
 								<option value="">- Pilih Group-</option>
 								<option value="1" @if($user->group=="1") selected @endif>Administrator</option>
+								<option value="2" @if($user->group=="2") selected @endif>Operator</option>
+							</select>
+
+						</div>
+					</div>
+
+					<div class="form-group @if ($errors->has('faskes')) has-error @endif">
+						<label class="col-sm-2 control-label">{{ __('Faskes') }}</label>
+						<div class="col-sm-10">
+							@if ($errors->has('faskes'))<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ $errors->first('group') }}</label>@endif
+							<select class="form-control" name="faskes">
+								<option value="">- Pilih Faskes-</option>
+                                        @foreach($faskes as $v)
+                                             <option value="{{ $v->id }}" @if($user->faskes=="$v->id") selected @endif>{{ $v->nama_faskes }}</option>
+                                        @endforeach
 							</select>
 
 						</div>

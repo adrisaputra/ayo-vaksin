@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Faskes;   //nama model
 use App\Models\User;   //nama model
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB; //untuk membuat query di controller
@@ -48,7 +49,8 @@ class UserController extends Controller
       ## Tampilkan Form Create
       public function create()
       {
-          $view=view('admin.user.create');
+          $faskes = Faskes::get();
+          $view=view('admin.user.create',compact('faskes'));
           $view=$view->render();
           return $view;
       }
@@ -59,14 +61,16 @@ class UserController extends Controller
             $this->validate($request, [
                 'name' => 'required|string|max:255|unique:users',
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:8|confirmed'
-                
+                'password' => 'required|string|min:8|confirmed',
+                'group' => 'required',
+                'faskes' => 'required'
             ]);
             
             $input['name'] = $request->name;
             $input['email'] = $request->email;
             $input['password'] = Hash::make($request->password);
             $input['group'] = $request->group;
+            $input['faskes'] = $request->faskes;
             $input['status'] = 1;
           
             User::create($input);
@@ -78,7 +82,8 @@ class UserController extends Controller
       ## Tampilkan Form Edit
       public function edit(User $user)
       {
-          $view=view('admin.user.edit', compact('user'));
+          $faskes = Faskes::get();
+          $view=view('admin.user.edit', compact('user','faskes'));
           $view=$view->render();
           
           $id = Auth::user()->id;
@@ -94,16 +99,39 @@ class UserController extends Controller
       public function update(Request $request, User $user)
       {
           if($request->password){
-              $this->validate($request, [
-                  'name' => 'required|string|max:255',
-                  'password' => 'required|string|min:8|confirmed',
-                  'status' => 'required'
-              ]);
+            if($request->group!=1){
+                $this->validate($request, [
+                    'name' => 'required|string|max:255',
+                    'password' => 'required|string|min:8|confirmed',
+                    'status' => 'required',
+                    'group' => 'required',
+                    'faskes' => 'required'
+                ]);
+            } else {
+                $this->validate($request, [
+                    'name' => 'required|string|max:255',
+                    'password' => 'required|string|min:8|confirmed',
+                    'status' => 'required',
+                    'group' => 'required'
+                ]);
+            }
+             
           } else {
-              $this->validate($request, [
-                  'name' => 'required|string|max:255',
-                  'status' => 'required'
-              ]);
+
+              if($request->group!=1){
+                $this->validate($request, [
+                    'name' => 'required|string|max:255',
+                    'status' => 'required',
+                    'group' => 'required',
+                    'faskes' => 'required'
+                ]);
+            } else {
+                $this->validate($request, [
+                    'name' => 'required|string|max:255',
+                    'status' => 'required',
+                    'group' => 'required'
+                ]);
+            }
           }
   
         //   $user->fill($request->all());
@@ -114,6 +142,9 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
           }
           $user->group = $request->group;
+          if($request->group!=1){
+            $user->faskes = $request->faskes;
+          }
           $user->status = $request->status;
           $user->save();
           

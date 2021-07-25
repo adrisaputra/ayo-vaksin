@@ -46,7 +46,7 @@
       <div class="logo">
         <!-- <h1 class="text-light"><a href="index.html">Flattern</a></h1> -->
         <!-- Uncomment below if you prefer to use an image logo -->
-        <a href="index.html"><img src="{{ asset('upload/logo/logo_vaksin.png')}}" alt="" class="img-fluid"></a>
+        <a href="{{ url('/') }}"><img src="{{ asset('upload/logo/logo_vaksin.png')}}" alt="" class="img-fluid"></a>
       </div>
 
       <nav id="navbar" class="navbar">
@@ -74,6 +74,7 @@
               {{ $profil[0]->alamat }} <br>
               <strong>Telepon:</strong>{{ $profil[0]->telp }}<br>
               <strong>Email:</strong> {{ $profil[0]->email }}<br>
+              <strong>Support By : Anaqia Project (0811-409-0811)</strong><br>
             </p>
           </div>
 

@@ -21,6 +21,7 @@
 			<div class="box-tools pull-right">
 				<div class="form-inline">
 					<form action="{{ url('/antrian/search') }}" method="GET">
+						<input type="text" class="form-control datepicker" placeholder="Tanggal" name="tanggal" value="@if(Request::get('tanggal')) {{ Request::get('tanggal') }} @else {{ date('Y-m-d') }} @endif">
 						<div class="input-group margin">
 							<input type="text" class="form-control" name="search" placeholder="Masukkan kata kunci pencarian">
 							<span class="input-group-btn">
@@ -47,27 +48,52 @@
 						<th width="50px">No Urut</th>
 						<th width="20px">NIK</th>
 						<th width="160px">Nama</th>
-						<th width="160px">Tanggal Lahir</th>
-						<th width="160px">No. HP</th>
-						<th width="100px">Status</th>
-						<th width="10px">Aksi</th>
+						<!-- <th width="50px">Tanggal Lahir</th> -->
+						<!-- <th width="50px">No. HP</th> -->
+						<th width="50px">Tanggal Vaksin</th>
+						<th width="50px">Vaksin Ke</th>
+						<th width="50px">Keterangan</th>
+						<th width="50px">Status</th>
+						<th width="100px">Aksi</th>
 					</tr>
 					@foreach($antrian as $v)
 					<tr>
-						<td>{{ $loop->iteration }}</td>
+						<td>{{ $v->no_urut }}</td>
 						<td>{{ $v->nik }}</td>
 						<td>{{ $v->nama }}</td>
-						<td>{{ date('d-m-Y', strtotime($v->tanggal_lahir)) }}</td>
-						<td>{{ $v->no_hp }}</td>
+						<!-- <td>{{ date('d-m-Y', strtotime($v->tanggal_lahir)) }}</td> -->
+						<!-- <td>{{ $v->no_hp }}</td> -->
+						<td>{{ date('d-m-Y', strtotime($v->tanggal)) }}</td>
+						<td>
+							@if($v->vaksin_ke==1)
+								Vaksin 1
+							@elseif($v->vaksin_ke==3)
+								Vaksin 1
+							@elseif($v->vaksin_ke==2)
+								Vaksin 2
+							@endif
+						</td>
+						<td>
+							@if($v->vaksin_ke==1)
+								Untuk Perjalanan
+							@elseif($v->vaksin_ke==2)
+								Vaksin Kedua
+							@elseif($v->vaksin_ke==3)
+								Untuk Lansia
+							@endif
+						</td>
 						<td>
 						@if($v->status==0)
-							<span class="label label-danger" style="background-color: #dd4b39 !important;">Belum Di Vaksin</span>
+							<span class="label label-warning">Masih Dalam Antrian</span>
 						@elseif($v->status==1)
-							<span class="label label-success" style="background-color: #00a65a !important;">Telah Di Vaksin</span>
+							<span class="label label-success" style="background-color: #00a65a !important;">Hadir</span>
+						@elseif($v->status==2)
+							<span class="label label-danger" style="background-color: #dd4b39 !important;">Tidak Hadir</span>
 						@endif
 						</td>
 						<td>
-						<a href="{{ asset('/antrian/edit/'.$v->id) }}" class="btn btn-sm btn-primary btn-flat">Lihat Data<i class="icofont-download"></i></a>
+							<a href="{{ url('/antrian/edit/'.$v->id) }}" class="btn btn-xs btn-primary btn-flat btn-block">Lihat Data<i class="icofont-download"></i></a>
+							<!-- <a href="{{ url('/antrian/hapus/'.$v->id ) }}" class="btn btn-xs btn-flat btn-danger btn-block"" onclick="return confirm('Anda Yakin ?');">Hapus</a> -->
 						</td>
 					</tr>
 					@endforeach
@@ -76,7 +102,7 @@
 			</div>
 		<div class="box-footer">
 			<!-- PAGINATION -->
-			<div class="float-right">{{ $antrian->appends(Request::only('search'))->links() }}</div>
+			<div class="float-right">{{ $antrian->appends(Request::only('tanggal','search'))->links() }}</div>
 		</div>
 	</div>
 	</section>

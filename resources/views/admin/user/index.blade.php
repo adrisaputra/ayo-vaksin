@@ -61,17 +61,7 @@
 							@if ($v->group==1)
 								<span class="label label-danger">Administrator</span>
 							@elseif  ($v->group==2)
-								<span class="label label-warning">Staff</span>
-							@elseif  ($v->group==3)
-								<span class="label label-info">Kasubid</span>
-							@elseif  ($v->group==4)
-								<span class="label label-info">Kabid</span>
-							@elseif  ($v->group==5)
-								<span class="label label-info">Sekretaris</span>
-							@elseif  ($v->group==6)
-								<span class="label label-success">Kepala Badan</span>
-							@elseif  ($v->group==7)
-								<span class="label label-primary">Pemohon</span>
+								<span class="label label-warning">Operator</span>
 							@endif
 						</td>
 						<td>

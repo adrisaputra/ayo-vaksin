@@ -87,8 +87,8 @@
         <div class="wrapper">
             <header class="main-header">
                 <a href="" class="logo">
-                    <span class="logo-mini"><b>SIM</b></span>
-                    <span class="logo-lg"><b>SIMKES</b></span>
+                    <span class="logo-mini"><b></b></span>
+                    <span class="logo-lg"><b>AYO VAKSIN</b></span>
                 </a>
                 
                 <nav class="navbar navbar-static-top">
@@ -152,7 +152,8 @@
                         <li class="{{ (request()->is('antrian*')) ? 'active' : '' }}""><a href="{{ url('antrian')}}"><i class="fa fa-list"></i> <span>Antrian</span></a></li>
                        @if(Auth::user()->group==1)
                         <li class="header">PENGATURAN</li>
-                        <li class="{{ (request()->is('setting*')) ? 'active' : '' }}""><a href="{{ url('setting')}}"><i class="fa fa-list"></i> <span>Setting</span></a></li>
+                        <li class="{{ (request()->is('atur_jumlah_antrian*')) ? 'active' : '' }}""><a href="{{ url('atur_jumlah_antrian')}}"><i class="fa fa-list"></i> <span>Atur Jumlah Antrian</span></a></li>
+                        <li class="{{ (request()->is('faskes*')) ? 'active' : '' }}""><a href="{{ url('faskes')}}"><i class="fa fa-list"></i> <span>Faskes</span></a></li>
                         <li class="{{ (request()->is('profil*')) ? 'active' : '' }}""><a href="{{ url('profil')}}"><i class="fa fa-list"></i> <span>Profil</span></a></li>
                         <li class="{{ (request()->is('slider*')) ? 'active' : '' }}""><a href="{{ url('slider')}}"><i class="fa fa-list"></i> <span>Slider</span></a></li>
                         <li class="{{ (request()->is('user*')) ? 'active' : '' }}""><a href="{{ url('user')}}"><i class="fa fa-user"></i> <span>User</span></a></li>

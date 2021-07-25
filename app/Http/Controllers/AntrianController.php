@@ -18,7 +18,10 @@ class AntrianController extends Controller
     ## Tampikan Data
     public function index()
     {
-        $antrian = Antrian::where('tanggal',date('Y-m-d'))->orderBy('id','ASC')->paginate(30);
+        $antrian = Antrian::where('tanggal',date('Y-m-d'))
+                            ->where('faskes', Auth::user()->faskes)
+                            ->where('status_hapus', 0)
+                            ->orderBy('id','ASC')->paginate(50)->onEachSide(1);
 		return view('admin.antrian.index',compact('antrian'));
     }
 
@@ -26,15 +29,21 @@ class AntrianController extends Controller
 	public function search(Request $request)
     {
         $antrian = $request->get('search');
+        $tanggal = $request->get('tanggal');
         $antrian = Antrian::
-                    where('tanggal',date('Y-m-d'))
+                    where(function ($query) use ($tanggal) {
+                        $query->where('tanggal', 'LIKE', '%'.$tanggal.'%');
+                    })
+                    // where('tanggal',$tanggal)
+                    ->where('faskes', Auth::user()->faskes)
+                    ->where('status_hapus', 0)
                     ->where(function ($query) use ($antrian) {
                         $query->where('no_urut', 'LIKE', '%'.$antrian.'%')
                             ->orWhere('nik', 'LIKE', '%'.$antrian.'%')
                             ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
                             ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
                             ->orWhere('nama', 'LIKE', '%'.$antrian.'%');
-                    })->orderBy('id','DESC')->paginate(10);
+                    })->orderBy('id','ASC')->paginate(50)->onEachSide(1);
 		return view('admin.antrian.index',compact('antrian'));
     }
 	
@@ -51,7 +60,12 @@ class AntrianController extends Controller
     {
        
 		$antrian->fill($request->all());
-		$antrian->status = 1;
+
+        if($request->status=="hadir"){
+            $antrian->status = 1;
+        } else {
+            $antrian->status = 2;
+        }
 			
     	$antrian->save();
 		
@@ -61,14 +75,9 @@ class AntrianController extends Controller
     ## Hapus Data
     public function delete(Antrian $antrian)
     {
-        
-		$pathToYourFile = 'upload/antrian_antrian/'.$antrian->antrian;
-		if(file_exists($pathToYourFile)) 
-		{
-			unlink($pathToYourFile); 
-		}
+        $antrian->status_hapus = 1;
 			
-		$antrian->delete();
+    	$antrian->save();
 		
         return redirect('/antrian')->with('status', 'Data Berhasil Dihapus');
     }

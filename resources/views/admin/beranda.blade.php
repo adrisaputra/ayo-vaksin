@@ -28,7 +28,6 @@
 						<div class="icon">
 						<i class="fa fa-inbox"></i>
 						</div>
-						<a href="{{ url('izin_penelitian_masuk') }}" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 				<!-- ./col -->
@@ -38,12 +37,11 @@
 						<div class="inner">
 						<h3>{{ $sudah_divaksin }}</h3>
 
-						<p>Sudah Di Vaksin</p>
+						<p>Sudah Registrasi</p>
 						</div>
 						<div class="icon">
 						<i class="fa fa-inbox"></i>
 						</div>
-						<a href="{{ url('skk_ormas_masuk') }}" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 				<!-- ./col -->
@@ -53,12 +51,11 @@
 						<div class="inner">
 						<h3>{{ $belum_divaksin }}</h3>
 
-						<p>Belum Di Vaksin</p>
+						<p>Belum Registrasi</p>
 						</div>
 						<div class="icon">
 						<i class="fa fa-inbox"></i>
 						</div>
-						<a href="{{ url('skt_ormas_masuk') }}" class="small-box-footer">Detail <i class="fa fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 			</div>

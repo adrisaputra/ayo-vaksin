@@ -123,7 +123,8 @@
 						<div class="col-sm-10">
 							<div>
 								@if($antrian->status==0)
-									<button type="submit" class="btn btn-success btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');"> Proses</button>
+									<button type="submit" class="btn btn-success btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');" name="status" value="hadir"> Hadir</button>
+									<button type="submit" class="btn btn-danger btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');" name="status" value="tidak_hadir"> Tidak Hadir</button>
 								@endif
 								<a href="{{ url('/antrian') }}" class="btn btn-warning btn-flat btn-sm" title="Kembali">Kembali</a>
 							</div>

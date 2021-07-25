@@ -6,7 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\AturJumlahAntrianController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\FaskesController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\UserController;
@@ -42,7 +44,8 @@ Route::get('/antrian_w/besok', [BerandaController::class, 'besok']);
 Route::get('/antrian_w/search', [BerandaController::class, 'search']);
 Route::get('/antrian_w/hari_ini/search', [BerandaController::class, 'search_hari_ini']);
 Route::get('/antrian_w/besok/search', [BerandaController::class, 'search_besok']);
-Route::get('/antrian_w/create', [BerandaController::class, 'create']);
+Route::get('/antrian_w/create/', [BerandaController::class, 'create']);
+Route::get('/antrian_w/tiket/{antrian}', [BerandaController::class, 'tiket']);
 Route::post('/antrian_w', [BerandaController::class, 'store']);
 Route::get('/antrian_w/detail/{antrian}', [BerandaController::class, 'detail']);
 Route::get('/antrian_w/cetak/{antrian}', [BerandaController::class, 'cetak']);
@@ -66,11 +69,25 @@ Route::group(['middleware' => 'is.group'], function () {
     Route::put('/antrian/edit/{antrian}', [AntrianController::class, 'update']);
     Route::get('/antrian/hapus/{antrian}',[AntrianController::class, 'delete']);
 
-    ## Dokumen
+    ## Setting
     Route::get('/setting', [SettingController::class, 'index']);
     Route::get('/setting/edit/{setting}', [SettingController::class, 'edit']);
     Route::put('/setting/edit/{setting}', [SettingController::class, 'update']);
     Route::get('/setting/hapus/{setting}',[SettingController::class, 'delete']);
+
+    ## Setting
+    Route::get('/atur_jumlah_antrian', [AturJumlahAntrianController::class, 'index']);
+    Route::get('/atur_jumlah_antrian/edit/{faskes}', [AturJumlahAntrianController::class, 'edit']);
+    Route::put('/atur_jumlah_antrian/edit/{faskes}', [AturJumlahAntrianController::class, 'update']);
+
+    ## Faskes
+    Route::get('/faskes', [FaskesController::class, 'index']);
+    Route::get('/faskes/search', [FaskesController::class, 'search']);
+    Route::get('/faskes/create', [FaskesController::class, 'create']);
+    Route::post('/faskes', [FaskesController::class, 'store']);
+    Route::get('/faskes/edit/{faskes}', [FaskesController::class, 'edit']);
+    Route::put('/faskes/edit/{faskes}', [FaskesController::class, 'update']);
+    Route::get('/faskes/hapus/{faskes}',[FaskesController::class, 'delete']);
 
     ## Slider
     Route::get('/slider', [SliderController::class, 'index']);

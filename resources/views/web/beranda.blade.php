@@ -43,7 +43,6 @@
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" >
-        <center><h2>{{ $title }}</h2></center>
         
         <div class="row mt-5 justify-content-center" antrian-aos="fade-up">
           <div class="col-lg-12">
@@ -60,77 +59,55 @@
 						</p>
 						@endif
 						
+            <!-- <div class="bd-example">
+			<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+				<ol class="carousel-indicators">
+					<li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+					<li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+					<li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+				</ol>
+				<div class="carousel-inner">
+          @foreach($faskes as $v)
+					<div class="carousel-item @if($loop->iteration==1) active @endif">
+						<center><p style="font-size:20px">{{ $v->nama_faskes }}</p></center>
+            @php
+            $tanggal = date('Y-m-d');
+            $jam = date('H:i:s');
+
+            if(($tanggal==date('Y-m-d')) && ($jam>='13:00:00' && $jam<='24:00:00')){
+              $jumlah_antrian = DB::table('antrian_tbl')->where('status',0)->where('status_hapus',0)->where('faskes',$v->id)->where('tanggal',date('Y-m-d',strtotime($tanggal . "+1 days")))->count();
+            } else if(($tanggal==date('Y-m-d')) && ($jam>='00:00:00' && $jam<='12:00:00')) { 
+              $jumlah_antrian = DB::table('antrian_tbl')->where('status',0)->where('status_hapus',0)->where('faskes',$v->id)->where('tanggal',date('Y-m-d'))->count();
+            } else {
+              $jumlah_antrian = DB::table('antrian_tbl')->where('status',0)->where('status_hapus',0)->where('faskes',$v->id)->where('tanggal',date('Y-m-d'))->count();
+            }
+             
+            @endphp
+            <center><p style="font-size:30px">Sisa Antrian : {{ $v->jumlah_antrian - $jumlah_antrian }}</p></center>
+					</div>
+          @endforeach
+				</div>
+				<a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			</div>
+		</div -->
             <div class="row">
             <div class="box-header with-border">
-              <div class="box-tools pull-left" style="float: left;">
+              <div class="box-tools">
                 <div style="padding-top:10px">
-                @if($setting[0]->jumlah > $jumlah_antrian)
-                    <a href="{{ url('/antrian_w/create') }}" class="btn btn-success btn-flat" title="Registrasi Vaksin">Registrasi Vaksin</a>
-                @else
-                    <a href="{{ url('/antrian_w/create') }}" class="btn btn-danger btn-flat" title="Registrasi Vaksin">Registrasi Vaksin</a>
-                @endif
-                    <a href="{{ url('/') }}" class="btn btn-warning btn-flat" title="Refresh halaman">Refresh</a>   
-                </div>
-              </div>
-              <div class="box-tools pull-right" style="float: right;margin-top: 10px;">
-                <div class="form-inline">
-                @if(Request::segment(2)=="")
-                  <form action="{{ url('/antrian_w/search') }}" method="GET">
-                @elseif (Request::segment(2)=="hari_ini")
-                  <form action="{{ url('/antrian_w/hari_ini/search') }}" method="GET">
-                @elseif (Request::segment(2)=="besok")
-                  <form action="{{ url('/antrian_w/besok/search') }}" method="GET">
-                @endif
-                    <div class="input-group margin">
-                      <input type="text" class="form-control" name="search" placeholder="Masukkan kata kunci pencarian" style="border-radius: 0;">
-                      <span class="input-group-btn">
-                        <button type="submit" class="btn btn-danger btn-flat">cari</button>
-                      </span>
-                    </div>
-                  </form>
+                <center>
+                      <a href="{{ url('/antrian_w/create') }}" class="btn btn-success btn-flat btn-lg" title="Registrasi Vaksin" style="padding: 1rem 2rem;font-size: 1.5rem;">Registrasi Di Sini !!!</a>
+                 
+                </center>
                 </div>
               </div>
             </div></div><br>
-            <center>
-              <a href="{{ url('/antrian_w/hari_ini') }}" class="btn @if(Request::segment(2)=="" || Request::segment(2)=="hari_ini") btn-success btn-flat @else btn-default btn-flat" style="background-color: #ffffff;border-color: #9e9e9e;" @endif title="Registrasi Vaksin">Hari Ini</a>
-              <a href="{{ url('/antrian_w/besok') }}" class="btn @if(Request::segment(2)=="besok") btn-success btn-flat @else btn-default btn-flat" style="background-color: #ffffff;border-color: #9e9e9e;" @endif  title="Registrasi Vaksin">Besok</a>
-            </center><br>
-            <div class="table-responsive table-download box-body">
-                <table class="table table-bordered table-striped table-hover">
-                <tr class='info'>
-                    <th width="50px">No Urut</th>
-                    <th width="20px">NIK</th>
-                    <th width="150px">Nama</th>
-                    <th width="10px">Tanggal Lahir</th>
-                    <th width="70px">No. HP</th>
-                    <th width="10px">Status</th>
-                    <th width="170px">Aksi</th>
-                </tr>
-                @foreach($antrian as $v)
-                    <tr>
-                      <td>{{ $loop->iteration }}</td>
-                      <td>{{ $v->nik }}</td>
-                      <td>{{ $v->nama }}</td>
-						          <td>{{ date('d-m-Y', strtotime($v->tanggal_lahir)) }}</td>
-                      <td>{{ $v->no_hp }}</td>
-                      <td>
-                        @if($v->status==0)
-                          <span class="label label-danger" style="background-color: #dd4b39 !important;">Belum Di Vaksin</span>
-                        @elseif($v->status==1)
-                          <span class="label label-success" style="background-color: #00a65a !important;">Telah Di Vaksin</span>
-                        @endif
-                      </td>
-                      <td>
-                        <a href="{{ asset('/antrian_w/detail/'.$v->id) }}" class="btn btn-sm btn-primary btn-flat">Lihat Data<i class="icofont-download"></i></a>
-                        <a href="{{ asset('/antrian_w/cetak/'.$v->id) }}" class="btn btn-sm btn-info btn-flat">Cetak No. Antrian<i class="icofont-download"></i></a>
-                      </td>
-			
-                    </tr>
-                @endforeach
-                </table>
-            </div>
-            <div align="right" style="float: right;">{{ $antrian->appends(Request::only('search'))->links() }}</div>
-
           </div>
 
         </div>
@@ -140,4 +117,8 @@
 
   </main><!-- End #main -->
 
+
+	<script src="{{ asset('assets2/js/jquery.js') }}"></script> 
+	<script src="{{ asset('assets2/js/popper.js') }}"></script> 
+	<script src="{{ asset('assets2/js/bootstrap.js') }}"></script>
 @endsection
