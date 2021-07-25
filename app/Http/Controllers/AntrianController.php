@@ -63,8 +63,10 @@ class AntrianController extends Controller
 
         if($request->status=="hadir"){
             $antrian->status = 1;
-        } else {
+        } else if($request->status=="tidak_hadir"){
             $antrian->status = 2;
+        } else {
+            $antrian->status = 3;
         }
 			
     	$antrian->save();

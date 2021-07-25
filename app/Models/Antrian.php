@@ -25,6 +25,7 @@ class Antrian extends Model
                             'faskes_vaksin_pertama',
                             'faskes',
                             'status',
+                            'alasan',
                             'status_hapus',
                             'tanggal',
                             'no_urut',

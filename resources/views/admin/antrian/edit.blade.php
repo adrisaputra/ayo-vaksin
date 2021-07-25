@@ -125,7 +125,36 @@
 								@if($antrian->status==0)
 									<button type="submit" class="btn btn-success btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');" name="status" value="hadir"> Hadir</button>
 									<button type="submit" class="btn btn-danger btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');" name="status" value="tidak_hadir"> Tidak Hadir</button>
+									<button type="button" class="btn btn-primary btn-flat btn-sm" data-toggle="modal" data-target="#modal-default"> Di Tolak</button>
+
+									<div class="modal fade" id="modal-default">
+										<div class="modal-dialog">
+										<div class="modal-content">
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span></button>
+											<h4 class="modal-title">Alasan Di Tolak</h4>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<label class="col-sm-2 control-label">{{ __('Alasan') }}</label>
+												<div class="col-sm-10">
+													<textarea class="form-control" name="alasan" required></textarea>
+												</div>
+											</div>
+										</div>
+										<div class="modal-footer">
+											<button type="submit" class="btn btn-primary">Simpan</button>
+										</div>
+										</div>
+										<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+									<!-- /.modal -->
+
 								@endif
+								<br><br>
 								<a href="{{ url('/antrian') }}" class="btn btn-warning btn-flat btn-sm" title="Kembali">Kembali</a>
 							</div>
 						</div>

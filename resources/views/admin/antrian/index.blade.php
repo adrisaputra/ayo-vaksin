@@ -89,6 +89,10 @@
 							<span class="label label-success" style="background-color: #00a65a !important;">Hadir</span>
 						@elseif($v->status==2)
 							<span class="label label-danger" style="background-color: #dd4b39 !important;">Tidak Hadir</span>
+						@elseif($v->status==3)
+							<span class="label label-primary">Ditolak</span><br><br>
+
+							<b>Alasan :</b> {{ $v->alasan }}
 						@endif
 						</td>
 						<td>
