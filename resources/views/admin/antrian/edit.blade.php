@@ -83,12 +83,25 @@
 						<label class="col-sm-2 control-label">{{ __('Vaksin Ke') }}</label>
 						<div class="col-sm-10">
 						@if($antrian->vaksin_ke == 1)
-							<input type="text" class="form-control" value="{{ __('Pertama') }}" disabled>
-						@else
+							<input type="text" class="form-control" value="{{ __('Pertama (Khusus Perjalanan)') }}" disabled>
+						@elseif($antrian->vaksin_ke == 2)
 							<input type="text" class="form-control" value="{{ __('Kedua') }}" disabled>
+						@else
+							<input type="text" class="form-control" value="{{ __('Pertama (Lansia)') }}" disabled>
 						@endif
 						</div>
 					</div>
+
+					@if($antrian->vaksin_ke == 1)
+					
+					<div class="form-group">
+						<label class="col-sm-2 control-label">{{ __('Tujuan') }}</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" value="{{ $antrian->tujuan }}" disabled>
+						</div>
+					</div>
+					
+					@endif
 
 					@if($antrian->vaksin_ke == 2)
 					
@@ -112,7 +125,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">{{ __('Faskes') }}</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" value="{{ $antrian->faskes }}" disabled>
+							<input type="text" class="form-control" value="{{ $antrian->faskes_vaksin_pertama }}" disabled>
 						</div>
 					</div>
 					
@@ -122,7 +135,6 @@
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-10">
 							<div>
-								@if($antrian->status==0)
 									<button type="submit" class="btn btn-success btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');" name="status" value="hadir"> Hadir</button>
 									<button type="submit" class="btn btn-danger btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');" name="status" value="tidak_hadir"> Tidak Hadir</button>
 									<button type="button" class="btn btn-primary btn-flat btn-sm" data-toggle="modal" data-target="#modal-default"> Di Tolak</button>
@@ -139,7 +151,7 @@
 											<div class="form-group">
 												<label class="col-sm-2 control-label">{{ __('Alasan') }}</label>
 												<div class="col-sm-10">
-													<textarea class="form-control" name="alasan" required></textarea>
+													<textarea class="form-control" name="alasan"></textarea>
 												</div>
 											</div>
 										</div>
@@ -153,7 +165,6 @@
 									</div>
 									<!-- /.modal -->
 
-								@endif
 								<br><br>
 								<a href="{{ url('/antrian') }}" class="btn btn-warning btn-flat btn-sm" title="Kembali">Kembali</a>
 							</div>

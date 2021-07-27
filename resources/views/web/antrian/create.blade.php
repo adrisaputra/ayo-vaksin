@@ -101,7 +101,7 @@
                   <p>Tanggal Lahir</p>
                 </div>
                 <div class="col-md-9 form-group">
-                  <input type="text" name="tanggal_lahir" class="date form-control" value="{{ old('tanggal_lahir') }}">
+                  <input type="text" name="tanggal_lahir" class="date form-control" value="{{ old('tanggal_lahir') }}" readonly='true' style="background-color: #fff;">
                   @if ($errors->has('tanggal_lahir')) <label style="font-size:12px;color: #f44336;">{{ $errors->first('tanggal_lahir') }}</label>@endif
                 </div>
               </div>
@@ -223,7 +223,7 @@
                   <p>Tanggal Vaksin Pertama</p>
                 </div>
                 <div class="col-md-9 form-group">
-                  <input type="text" name="tanggal_vaksin_pertama" class="date2 form-control" value="{{ old('tanggal_vaksin_pertama') }}">
+                  <input type="text" name="tanggal_vaksin_pertama" class="date2 form-control" value="{{ old('tanggal_vaksin_pertama') }}"  readonly='true' style="background-color: #fff;">
                   @if ($errors->has('tanggal_vaksin_pertama')) <label style="font-size:12px;color: #f44336;">{{ $errors->first('tanggal_vaksin_pertama') }}</label>@endif
                 </div>
               </div>
