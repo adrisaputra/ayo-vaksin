@@ -100,7 +100,7 @@
             <div class="row">
             <div class="box-header with-border">
               <div class="box-tools">
-                <div style="padding-top:10px">
+                <div class="col-sm-12">
                 <center>
                       <a href="{{ url('/antrian_w/create') }}" class="btn btn-success btn-flat btn-lg" title="Registrasi Vaksin" style="padding: 1rem 2rem;font-size: 1.5rem;">Registrasi Di Sini !!!</a>
                       <a href="{{ url('/antrian_w/') }}" class="btn btn-warning btn-flat btn-lg" title="Cetak Tiket Vaksin" style="padding: 1rem 2rem;font-size: 1.5rem;">Cetak Ulang Tiket !!!</a>
