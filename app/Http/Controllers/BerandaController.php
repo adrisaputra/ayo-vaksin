@@ -18,76 +18,39 @@ class BerandaController extends Controller
         $title = 'ANTRIAN VAKSIN HARI INI';
         $profil = DB::table('profil_tbl')->where('id',1)->get()->toArray();
         $setting = DB::table('setting_tbl')->get()->toArray();
-        // $tanggal = date('Y-m-d');
-        // $jam = date('H:i:s');
-        // if(($tanggal==date('Y-m-d')) && ($jam>='13:00:00' && $jam<='24:00:00')){
-        //     $jumlah_antrian = Antrian::where('tanggal',date('Y-m-d',strtotime($tanggal . "+1 days")))->count();
-        // } else if(($tanggal==date('Y-m-d')) && ($jam>='00:00:00' && $jam<='12:00:00')) {
-        //     $jumlah_antrian = Antrian::where('tanggal',date('Y-m-d'))->count();
-        // } else {
-        //     $jumlah_antrian = DB::table('setting_tbl')->get()->toArray();
-        // }
         $slider = Slider::get();
         $faskes = Faskes::get();
-        // return view('web.beranda', compact('slider','profil','title','setting','jumlah_antrian'));
         return view('web.beranda', compact('slider','profil','title','setting','faskes'));
     }
-
-    // public function create()
-    // {
         
-    //     $setting = DB::table('setting_tbl')->get()->toArray();
-    //     $tanggal = date('Y-m-d');
-    //     $jam = date('H:i:s');
-    //     if(($tanggal==date('Y-m-d')) && ($jam>='13:00:00' && $jam<='24:00:00')){
-    //         $jumlah_antrian = Antrian::where('tanggal',date('Y-m-d',strtotime($tanggal . "+1 days")))->count();
-    //         $tgl = date('d-m-Y',strtotime($tanggal . "+1 days"));
-                
-    //         if($setting[0]->jumlah > $jumlah_antrian){
-    //             $title = "Registrasi Vaksin";
-    //             $profil = DB::table('profil_tbl')->where('id',1)->get()->toArray();
-    //             $faskes = Faskes::get();
-    //             $view=view('web.antrian.create', compact('title','profil','faskes'));
-    //             $view=$view->render();
-    //             return $view;
-    //         } else {
-    //             return redirect('/')->with('status2','Pendaftaran Tanggal '.$tgl.' Sudah Penuh');
-    //         }
+    ## Tampikan Data
+    public function antrian()
+    {
+        $title = 'CETAK ULANG TIKET';
+        $profil = DB::table('profil_tbl')->where('id',1)->get()->toArray();
+        $slider = Slider::get();
+        $tampil_antrian = 0;
+        return view('web.antrian.index',compact('slider','profil','title','tampil_antrian'));
+    }
 
-    //     } else if(($tanggal==date('Y-m-d')) && ($jam>='00:00:00' && $jam<='12:00:00')) {
-    //         $jumlah_antrian = Antrian::where('tanggal',date('Y-m-d'))->count();
-    //         $tgl = date('d-m-Y');
-                
-    //         if($setting[0]->jumlah > $jumlah_antrian){
-    //             $title = "Registrasi Vaksin";
-    //             $profil = DB::table('profil_tbl')->where('id',1)->get()->toArray();
-    //             $faskes = Faskes::get();
-    //             $view=view('web.antrian.create', compact('title','profil','faskes'));
-    //             $view=$view->render();
-    //             return $view;
-    //         } else {
-    //             return redirect('/')->with('status2','Pendaftaran Tanggal '.$tgl.' Sudah Penuh');
-    //         }
+	## Tampilkan Data Search
+	public function search(Request $request)
+    {
+        $title = 'CETAK ULANG TIKET';
+        $profil = DB::table('profil_tbl')->where('id',1)->get()->toArray();
+        $slider = Slider::get();
+        $tampil_antrian = 1;
 
-    //     } else {
-    //         $jumlah_antrian = DB::table('setting_tbl')->get()->toArray();
-    //         $tgl = date('d-m-Y');
-                
-    //         if($setting[0]->jumlah > $jumlah_antrian){
-    //             $title = "Registrasi Vaksin";
-    //             $profil = DB::table('profil_tbl')->where('id',1)->get()->toArray();
-    //             $faskes = Faskes::get();
-    //             $view=view('web.antrian.create', compact('title','profil','faskes'));
-    //             $view=$view->render();
-    //             return $view;
-    //         } else {
-    //             return redirect('/')->with('status2','Pendaftaran Tanggal '.$tgl.' Sudah Ditutup. Pendaftaran Hari Selanjutnya Dibuka Pukul 13.00 WITA');
-    //         }
-
-    //     }
-
-    // }
-
+        $antrian = $request->get('search');
+        $antrian = Antrian::
+                    where('status_hapus', 0)
+                    ->where(function ($query) use ($antrian) {
+                        $query->where('nik', 'LIKE', '%'.$antrian.'%')
+                            ->orWhere('nama', 'LIKE', '%'.$antrian.'%');
+                    })->orderBy('id','ASC')->paginate(50)->onEachSide(1);
+		return view('web.antrian.index',compact('slider','profil','title','antrian','tampil_antrian'));
+    }
+	
     public function create()
     {
         $setting = DB::table('setting_tbl')->get()->toArray();
@@ -215,76 +178,78 @@ class BerandaController extends Controller
 
             if($cek_data>0){
                 return redirect('/antrian_w/create')->with('status2','Sudah Registrasi Hari Ini Di '.$cek_data_faskes[0]->nama_faskes);
-            } else if(($tanggal==date('Y-m-d')) && ($jam>='13:00:00' && $jam<='24:00:00')){
-    
-                if($setting_jumlah_antrian[0]->jumlah_antrian > $jumlah_antrian){
-                    $antrian = new Antrian();
-                    $antrian->no_urut = $jumlah_antrian + 1;
-                    $antrian->faskes = $request->faskes;
-                    $antrian->nik = $request->nik;
-                    $antrian->nama = $request->nama;
-                    $antrian->tempat_lahir = $request->tempat_lahir;
-                    $antrian->tanggal_lahir = $request->tanggal_lahir;
-                    $antrian->alamat = $request->alamat;
-                    $antrian->domisili = $request->domisili;
-                    $antrian->pekerjaan = $request->pekerjaan;
-                    $antrian->tempat_kerja = $request->tempat_kerja;
-                    $antrian->no_hp = $request->no_hp;
-                    $antrian->vaksin_ke = $request->vaksin_ke;
-                    if($request->vaksin_ke==1){    
-                        $antrian->tujuan = $request->tujuan;
-                    }else if($request->vaksin_ke==2){    
-                        $antrian->no_tiket = $request->no_tiket;
-                        $antrian->tanggal_vaksin_pertama = $request->tanggal_vaksin_pertama;
-                        $antrian->faskes_vaksin_pertama = $request->faskes_vaksin_pertama;
-                    }
-                    $antrian->status = 0;
-                    $antrian->tanggal = date('Y-m-d',strtotime($tanggal . "+1 days"));
-        
-                    $antrian->save();
-                    
-                    return redirect('/antrian_w/tiket/'.$antrian->id)->with('status','Registrasi Berhasil');
-                } else {
-                    return redirect('/antrian_w/create')->with('status2','Antrian Pada Faskes Yang Di Pilih Sudah Penuh');
-                }
-               
-    
-            } else if(($tanggal==date('Y-m-d')) && ($jam>='00:00:00' && $jam<='11:00:00')) {
-                
-                if($setting_jumlah_antrian[0]->jumlah_antrian > $jumlah_antrian){
-                    $antrian = new Antrian();
-                    $antrian->no_urut = $jumlah_antrian + 1;
-                    $antrian->faskes = $request->faskes;
-                    $antrian->nik = $request->nik;
-                    $antrian->nama = $request->nama;
-                    $antrian->tempat_lahir = $request->tempat_lahir;
-                    $antrian->tanggal_lahir = $request->tanggal_lahir;
-                    $antrian->alamat = $request->alamat;
-                    $antrian->domisili = $request->domisili;
-                    $antrian->pekerjaan = $request->pekerjaan;
-                    $antrian->tempat_kerja = $request->tempat_kerja;
-                    $antrian->no_hp = $request->no_hp;
-                    $antrian->vaksin_ke = $request->vaksin_ke;
-                    if($request->vaksin_ke==1){    
-                        $antrian->tujuan = $request->tujuan;
-                    }else if($request->vaksin_ke==2){    
-                        $antrian->no_tiket = $request->no_tiket;
-                        $antrian->tanggal_vaksin_pertama = $request->tanggal_vaksin_pertama;
-                        $antrian->faskes_vaksin_pertama = $request->faskes_vaksin_pertama;
-                    }
-                    $antrian->status = 0;
-                    $antrian->tanggal = $tanggal;
-        
-                    $antrian->save();
-                    
-                    return redirect('/antrian_w/tiket/'.$antrian->id)->with('status','Registrasi Berhasil');
-                } else {
-                    
-                    return redirect('/antrian_w/create')->with('status2','Antrian Pada Faskes Yang Di Pilih Sudah Penuh');
-                }
-                
             } else {
-                return redirect('/')->with('status2','Pendaftaran Tanggal '.$tanggal.' Sudah Ditutup. Pendaftaran Hari Selanjutnya Dibuka Pukul 13.00 WITA');  
+                if(($tanggal==date('Y-m-d')) && ($jam>='13:00:00' && $jam<='24:00:00')){
+    
+                    if($setting_jumlah_antrian[0]->jumlah_antrian > $jumlah_antrian){
+                        $antrian = new Antrian();
+                        $antrian->no_urut = $jumlah_antrian + 1;
+                        $antrian->faskes = $request->faskes;
+                        $antrian->nik = $request->nik;
+                        $antrian->nama = $request->nama;
+                        $antrian->tempat_lahir = $request->tempat_lahir;
+                        $antrian->tanggal_lahir = $request->tanggal_lahir;
+                        $antrian->alamat = $request->alamat;
+                        $antrian->domisili = $request->domisili;
+                        $antrian->pekerjaan = $request->pekerjaan;
+                        $antrian->tempat_kerja = $request->tempat_kerja;
+                        $antrian->no_hp = $request->no_hp;
+                        $antrian->vaksin_ke = $request->vaksin_ke;
+                        if($request->vaksin_ke==1){    
+                            $antrian->tujuan = $request->tujuan;
+                        }else if($request->vaksin_ke==2){    
+                            $antrian->no_tiket = $request->no_tiket;
+                            $antrian->tanggal_vaksin_pertama = $request->tanggal_vaksin_pertama;
+                            $antrian->faskes_vaksin_pertama = $request->faskes_vaksin_pertama;
+                        }
+                        $antrian->status = 0;
+                        $antrian->tanggal = date('Y-m-d',strtotime($tanggal . "+1 days"));
+            
+                        $antrian->save();
+                        
+                        return redirect('/antrian_w/tiket/'.$antrian->id)->with('status','Registrasi Berhasil');
+                    } else {
+                        return redirect('/antrian_w/create')->with('status2','Antrian Pada Faskes Yang Di Pilih Sudah Penuh');
+                    }
+                   
+        
+                } else if(($tanggal==date('Y-m-d')) && ($jam>='00:00:00' && $jam<='11:00:00')) {
+                    
+                    if($setting_jumlah_antrian[0]->jumlah_antrian > $jumlah_antrian){
+                        $antrian = new Antrian();
+                        $antrian->no_urut = $jumlah_antrian + 1;
+                        $antrian->faskes = $request->faskes;
+                        $antrian->nik = $request->nik;
+                        $antrian->nama = $request->nama;
+                        $antrian->tempat_lahir = $request->tempat_lahir;
+                        $antrian->tanggal_lahir = $request->tanggal_lahir;
+                        $antrian->alamat = $request->alamat;
+                        $antrian->domisili = $request->domisili;
+                        $antrian->pekerjaan = $request->pekerjaan;
+                        $antrian->tempat_kerja = $request->tempat_kerja;
+                        $antrian->no_hp = $request->no_hp;
+                        $antrian->vaksin_ke = $request->vaksin_ke;
+                        if($request->vaksin_ke==1){    
+                            $antrian->tujuan = $request->tujuan;
+                        }else if($request->vaksin_ke==2){    
+                            $antrian->no_tiket = $request->no_tiket;
+                            $antrian->tanggal_vaksin_pertama = $request->tanggal_vaksin_pertama;
+                            $antrian->faskes_vaksin_pertama = $request->faskes_vaksin_pertama;
+                        }
+                        $antrian->status = 0;
+                        $antrian->tanggal = $tanggal;
+            
+                        $antrian->save();
+                        
+                        return redirect('/antrian_w/tiket/'.$antrian->id)->with('status','Registrasi Berhasil');
+                    } else {
+                        
+                        return redirect('/antrian_w/create')->with('status2','Antrian Pada Faskes Yang Di Pilih Sudah Penuh');
+                    }
+                    
+                } else {
+                    return redirect('/')->with('status2','Pendaftaran Tanggal '.$tanggal.' Sudah Ditutup. Pendaftaran Hari Selanjutnya Dibuka Pukul 13.00 WITA');  
+                }
             }
            
         

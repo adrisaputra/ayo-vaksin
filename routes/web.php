@@ -39,8 +39,7 @@ Route::get('/', [BerandaController::class, 'index']);
 Route::get('/login_w', [BerandaController::class, 'login']);
 Route::post('/login_w', [LoginController::class, 'authenticate']);
 
-Route::get('/antrian_w/hari_ini', [BerandaController::class, 'hari_ini']);
-Route::get('/antrian_w/besok', [BerandaController::class, 'besok']);
+Route::get('/antrian_w/', [BerandaController::class, 'antrian']);
 Route::get('/antrian_w/search', [BerandaController::class, 'search']);
 Route::get('/antrian_w/hari_ini/search', [BerandaController::class, 'search_hari_ini']);
 Route::get('/antrian_w/besok/search', [BerandaController::class, 'search_besok']);
