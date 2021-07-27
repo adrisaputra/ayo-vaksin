@@ -266,13 +266,15 @@ class BerandaController extends Controller
 
     public function cetak($id)
     {
-    	$antrian = Antrian::leftJoin('faskes_tbl', 'faskes_tbl.id', '=', 'antrian_tbl.faskes')->where('antrian_tbl.id',$id)->get();
+    	$antrian = Antrian::select('antrian_tbl.*','faskes_tbl.nama_faskes')->leftJoin('faskes_tbl', 'faskes_tbl.id', '=', 'antrian_tbl.faskes')->where('antrian_tbl.id',$id)->get();
     	$antrian->toArray();
 
     	$pdf = PDF::loadview('web.antrian.cetak',[
                                 'antrian'=>$antrian
                             ]);
     	return $pdf->download('tiket vaksin dinkes.pdf');
+        
+        // return view('web.antrian.cetak', compact('antrian'));
     }
 
 }
