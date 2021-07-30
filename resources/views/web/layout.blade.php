@@ -74,7 +74,7 @@
               {{ $profil[0]->alamat }} <br>
               <strong>Telepon:</strong>{{ $profil[0]->telp }}<br>
               <strong>Email:</strong> {{ $profil[0]->email }}<br>
-              <strong>Support By : Anaqia Project (0811-409-0811)</strong><br>
+              <strong>Support By : Anaqia Project</strong><br>
             </p>
           </div>
 
