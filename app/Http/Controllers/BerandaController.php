@@ -177,7 +177,7 @@ class BerandaController extends Controller
         }
 
             if($cek_data>0){
-                return redirect('/antrian_w/create')->with('status2','Sudah Registrasi Hari Ini Di '.$cek_data_faskes[0]->nama_faskes);
+                return redirect('/antrian_w/create')->with('status3','Sudah Registrasi Hari Ini Di '.$cek_data_faskes[0]->nama_faskes.'. ');
             } else {
                 if(($tanggal==date('Y-m-d')) && ($jam>='13:00:00' && $jam<='24:00:00')){
     

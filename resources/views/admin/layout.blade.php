@@ -150,7 +150,8 @@
                         <li class="header">MAIN NAVIGATION</li>
                         <li class="{{ (request()->is('dashboard*')) ? 'active' : '' }}"><a href="{{ url('dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
                         <li class="{{ (request()->is('antrian*')) ? 'active' : '' }}""><a href="{{ url('antrian')}}"><i class="fa fa-list"></i> <span>Antrian</span></a></li>
-                       @if(Auth::user()->group==1)
+                        @if(Auth::user()->group==1)
+                        <li class="{{ (request()->is('info_kuota*')) ? 'active' : '' }}""><a href="{{ url('info_kuota')}}"><i class="fa fa-list"></i> <span>Info Kuota</span></a></li>
                         <li class="header">PENGATURAN</li>
                         <li class="{{ (request()->is('atur_jumlah_antrian*')) ? 'active' : '' }}""><a href="{{ url('atur_jumlah_antrian')}}"><i class="fa fa-list"></i> <span>Atur Jumlah Antrian</span></a></li>
                         <li class="{{ (request()->is('faskes*')) ? 'active' : '' }}""><a href="{{ url('faskes')}}"><i class="fa fa-list"></i> <span>Faskes</span></a></li>

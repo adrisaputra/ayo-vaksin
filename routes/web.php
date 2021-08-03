@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegistrasiController;
 use App\Http\Controllers\AntrianController;
+use App\Http\Controllers\InfoKuotaController;
 use App\Http\Controllers\AturJumlahAntrianController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FaskesController;
@@ -67,6 +68,9 @@ Route::group(['middleware' => 'is.group'], function () {
     Route::get('/antrian/edit/{antrian}', [AntrianController::class, 'edit']);
     Route::put('/antrian/edit/{antrian}', [AntrianController::class, 'update']);
     Route::get('/antrian/hapus/{antrian}',[AntrianController::class, 'delete']);
+
+    ## Info Kuota
+    Route::get('/info_kuota', [InfoKuotaController::class, 'index']);
 
     ## Setting
     Route::get('/setting', [SettingController::class, 'index']);

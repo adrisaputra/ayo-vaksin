@@ -46,6 +46,12 @@
 						</p>
 						@endif
 						
+            @if ($message = Session::get('status3'))
+						<p class="alert text-center" style="color: #ffffff;background-color: #f39c12;border-color: #e08e0b;">
+							{{ $message }}. Silakan Cetak Ulang Tiket <a href="{{ url('/antrian_w')}}"><b style="color:#3f51b5">DISINI</b></a> !!!
+						</p>
+						@endif
+						
             <form action="{{ url('/antrian_w')}}" method="POST" enctype="multipart/form-data">
             
             {{ csrf_field() }}
