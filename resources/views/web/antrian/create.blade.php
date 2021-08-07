@@ -168,19 +168,16 @@
                 </div>
                 <div class="col-md-9 form-group">
                   <select name="vaksin_ke" class="form-control" onChange="if (this.selectedIndex=='1'){ 
- 												document.getElementById('vaksin1').style.display = 'inline'; 
+ 												document.getElementById('vaksin1').style.display = 'none'; 
  												document.getElementById('vaksin2').style.display = 'none'; 
  											} else if (this.selectedIndex=='2'){
-                        document.getElementById('vaksin1').style.display = 'none'; 
-                        document.getElementById('vaksin2').style.display = 'none'; 
-                      } else if (this.selectedIndex=='3'){
                         document.getElementById('vaksin1').style.display = 'none'; 
                         document.getElementById('vaksin2').style.display = 'inline'; 
                       }
  											">
                     <option  value="">- Pilih -</option>
-                    <option value="1" @if(old('vaksin_ke')=="1") selected @endif>Pertama (Khusus Perjalanan)</option>
-                    <option value="3" @if(old('vaksin_ke')=="3") selected @endif>Pertama (Lansia)</option>
+                    <option value="1" @if(old('vaksin_ke')=="1") selected @endif>Pertama</option>
+                    <!-- <option value="3" @if(old('vaksin_ke')=="3") selected @endif>Pertama (Lansia)</option> -->
                     <option value="2" @if(old('vaksin_ke')=="2") selected @endif>Kedua</option>
                   </select>
                   @if ($errors->has('vaksin_ke')) <label style="font-size:12px;color: #f44336;">{{ $errors->first('vaksin_ke') }}</label>@endif

@@ -75,7 +75,7 @@
 						</td>
 						<td>
 							@if($v->vaksin_ke==1)
-								Untuk Perjalanan
+								Vaksin Pertama
 							@elseif($v->vaksin_ke==2)
 								Vaksin Kedua
 							@elseif($v->vaksin_ke==3)

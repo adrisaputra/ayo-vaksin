@@ -21,7 +21,7 @@ class AntrianController extends Controller
         $antrian = Antrian::where('tanggal',date('Y-m-d'))
                             ->where('faskes', Auth::user()->faskes)
                             ->where('status_hapus', 0)
-                            ->orderBy('id','ASC')->paginate(50)->onEachSide(1);
+                            ->orderBy('id','ASC')->paginate(100)->onEachSide(1);
 		return view('admin.antrian.index',compact('antrian'));
     }
 
@@ -43,7 +43,7 @@ class AntrianController extends Controller
                             ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
                             ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
                             ->orWhere('nama', 'LIKE', '%'.$antrian.'%');
-                    })->orderBy('id','ASC')->paginate(50)->onEachSide(1);
+                    })->orderBy('id','ASC')->paginate(100)->onEachSide(1);
 		return view('admin.antrian.index',compact('antrian'));
     }
 	

@@ -86,8 +86,7 @@ class BerandaController extends Controller
                 'pekerjaan' => 'required',
                 'tempat_kerja' => 'required',
                 'no_hp' => 'required',
-                'vaksin_ke' => 'required',
-                'tujuan' => 'required'
+                'vaksin_ke' => 'required'
             ]);
         } else if($request->vaksin_ke==3){
             $this->validate($request, [
@@ -196,7 +195,7 @@ class BerandaController extends Controller
                         $antrian->no_hp = $request->no_hp;
                         $antrian->vaksin_ke = $request->vaksin_ke;
                         if($request->vaksin_ke==1){    
-                            $antrian->tujuan = $request->tujuan;
+                            // $antrian->tujuan = $request->tujuan;
                         }else if($request->vaksin_ke==2){    
                             $antrian->no_tiket = $request->no_tiket;
                             $antrian->tanggal_vaksin_pertama = $request->tanggal_vaksin_pertama;
@@ -230,7 +229,7 @@ class BerandaController extends Controller
                         $antrian->no_hp = $request->no_hp;
                         $antrian->vaksin_ke = $request->vaksin_ke;
                         if($request->vaksin_ke==1){    
-                            $antrian->tujuan = $request->tujuan;
+                            // $antrian->tujuan = $request->tujuan;
                         }else if($request->vaksin_ke==2){    
                             $antrian->no_tiket = $request->no_tiket;
                             $antrian->tanggal_vaksin_pertama = $request->tanggal_vaksin_pertama;
