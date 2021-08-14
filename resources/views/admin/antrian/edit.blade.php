@@ -92,7 +92,7 @@
 						</div>
 					</div>
 
-					@if($antrian->vaksin_ke == 1)
+					<!-- @if($antrian->vaksin_ke == 1)
 					
 					<div class="form-group">
 						<label class="col-sm-2 control-label">{{ __('Tujuan') }}</label>
@@ -101,7 +101,7 @@
 						</div>
 					</div>
 					
-					@endif
+					@endif -->
 
 					@if($antrian->vaksin_ke == 2)
 					
