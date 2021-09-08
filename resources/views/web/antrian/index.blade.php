@@ -54,10 +54,7 @@
                 <table class="table table-bordered table-striped">
                 <tr class='info'>
                   <th width="50px">No Urut</th>
-                  <!-- <th width="20px">NIK</th> -->
                   <th width="160px">Nama</th>
-                  <!-- <th width="50px">Tanggal Lahir</th> -->
-                  <!-- <th width="50px">No. HP</th> -->
                   <th width="50px">Tanggal Vaksin</th>
                   <th width="50px">Vaksin Ke</th>
                   <th width="50px">Keterangan</th>
@@ -67,10 +64,7 @@
                   @foreach($antrian as $v)
                   <tr>
                     <td>{{ $v->no_urut }}</td>
-                    <!-- <td>{{ $v->nik }}</td> -->
                     <td>{{ $v->nama }}</td>
-                    <!-- <td>{{ date('d-m-Y', strtotime($v->tanggal_lahir)) }}</td> -->
-                    <!-- <td>{{ $v->no_hp }}</td> -->
                     <td>{{ date('d-m-Y', strtotime($v->tanggal)) }}</td>
                     <td>
                       @if($v->vaksin_ke==1)
@@ -83,7 +77,7 @@
                     </td>
                     <td>
                       @if($v->vaksin_ke==1)
-                        Untuk Perjalanan
+                        Vaksin Pertama
                       @elseif($v->vaksin_ke==2)
                         Vaksin Kedua
                       @elseif($v->vaksin_ke==3)

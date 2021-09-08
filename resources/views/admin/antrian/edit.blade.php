@@ -83,7 +83,7 @@
 						<label class="col-sm-2 control-label">{{ __('Vaksin Ke') }}</label>
 						<div class="col-sm-10">
 						@if($antrian->vaksin_ke == 1)
-							<input type="text" class="form-control" value="{{ __('Pertama (Khusus Perjalanan)') }}" disabled>
+							<input type="text" class="form-control" value="{{ __('Pertama') }}" disabled>
 						@elseif($antrian->vaksin_ke == 2)
 							<input type="text" class="form-control" value="{{ __('Kedua') }}" disabled>
 						@else
