@@ -18,11 +18,21 @@ class AntrianController extends Controller
     ## Tampikan Data
     public function index()
     {
-        $antrian = Antrian::where('tanggal',date('Y-m-d'))
-                            ->where('faskes', Auth::user()->faskes)
-                            ->where('status_hapus', 0)
-                            ->orderBy('id','ASC')->paginate(200)->onEachSide(1);
-		return view('admin.antrian.index',compact('antrian'));
+        if(Auth::user()->group==1){
+            $antrian = Antrian::
+                    select('antrian_tbl.*', 'nama_faskes')
+                    ->leftJoin('faskes_tbl', 'antrian_tbl.faskes', '=', 'faskes_tbl.id')
+                    ->where('tanggal',date('Y-m-d'))
+                    ->where('status_hapus', 0)
+                    ->orderBy('id','ASC')->paginate(200)->onEachSide(1);
+        } else {
+            $antrian = Antrian::where('tanggal',date('Y-m-d'))
+                    ->where('faskes', Auth::user()->faskes)
+                    ->where('status_hapus', 0)
+                    ->orderBy('id','ASC')->paginate(200)->onEachSide(1);
+        }
+        
+        return view('admin.antrian.index',compact('antrian'));
     }
 
 	## Tampilkan Data Search
@@ -30,21 +40,41 @@ class AntrianController extends Controller
     {
         $antrian = $request->get('search');
         $tanggal = $request->get('tanggal');
-        $antrian = Antrian::
-                    where(function ($query) use ($tanggal) {
-                        $query->where('tanggal', 'LIKE', '%'.$tanggal.'%');
-                    })
-                    // where('tanggal',$tanggal)
-                    ->where('faskes', Auth::user()->faskes)
-                    ->where('status_hapus', 0)
-                    ->where(function ($query) use ($antrian) {
-                        $query->where('no_urut', 'LIKE', '%'.$antrian.'%')
-                            ->orWhere('nik', 'LIKE', '%'.$antrian.'%')
-                            ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
-                            ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
-                            ->orWhere('nama', 'LIKE', '%'.$antrian.'%');
-                    })->orderBy('id','ASC')->paginate(200)->onEachSide(1);
-		return view('admin.antrian.index',compact('antrian'));
+
+        if(Auth::user()->group==1){
+            $antrian = Antrian::
+                        select('antrian_tbl.*', 'nama_faskes')
+                        ->leftJoin('faskes_tbl', 'antrian_tbl.faskes', '=', 'faskes_tbl.id')
+                        ->where(function ($query) use ($tanggal) {
+                            $query->where('tanggal', 'LIKE', '%'.$tanggal.'%');
+                        })
+                        ->where('status_hapus', 0)
+                        ->where(function ($query) use ($antrian) {
+                            $query->where('no_urut', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('nik', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('nama', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('nama_faskes', 'LIKE', '%'.$antrian.'%');
+                        })->orderBy('id','ASC')->paginate(200)->onEachSide(1);
+        } else {
+            $antrian = Antrian::
+                        where(function ($query) use ($tanggal) {
+                            $query->where('tanggal', 'LIKE', '%'.$tanggal.'%');
+                        })
+                        // where('tanggal',$tanggal)
+                        ->where('faskes', Auth::user()->faskes)
+                        ->where('status_hapus', 0)
+                        ->where(function ($query) use ($antrian) {
+                            $query->where('no_urut', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('nik', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('no_hp', 'LIKE', '%'.$antrian.'%')
+                                ->orWhere('nama', 'LIKE', '%'.$antrian.'%');
+                        })->orderBy('id','ASC')->paginate(200)->onEachSide(1);
+        }
+        
+        return view('admin.antrian.index',compact('antrian'));
     }
 	
     ## Tampilkan Form Edit

@@ -14,7 +14,7 @@ class Faskes extends Model
 
 	public function antrian()
 	{
-	    return $this->hasMany('App\Models\Antrian');
+	    return $this->belongsTo('App\Models\Antrian');
 	}
  
 }

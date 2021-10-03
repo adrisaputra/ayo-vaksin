@@ -34,7 +34,7 @@ class Antrian extends Model
 
     public function faskes()
     {
-        return $this->belongsTo('App\Models\Faskes');
+        return $this->hasOne('App\Models\Faskes');
     }
 
 }

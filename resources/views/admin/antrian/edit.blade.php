@@ -135,10 +135,12 @@
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-10">
 							<div>
+								@if(Auth::user()->group!=1)
 									<button type="submit" class="btn btn-success btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');" name="status" value="hadir"> Hadir</button>
 									<button type="submit" class="btn btn-danger btn-flat btn-sm" title="Proses Data" onclick="return confirm('Anda Yakin ?');" name="status" value="tidak_hadir"> Tidak Hadir</button>
 									<button type="button" class="btn btn-primary btn-flat btn-sm" data-toggle="modal" data-target="#modal-default"> Di Tolak</button>
-
+								@endif
+								
 									<div class="modal fade" id="modal-default">
 										<div class="modal-dialog">
 										<div class="modal-content">

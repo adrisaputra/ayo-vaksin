@@ -54,6 +54,9 @@
 						<th width="50px">Vaksin Ke</th>
 						<th width="50px">Keterangan</th>
 						<th width="50px">Status</th>
+						@if(Auth::user()->group==1)
+							<th width="50px">Faskes</th>
+						@endif
 						<th width="100px">Aksi</th>
 					</tr>
 					@foreach($antrian as $v)
@@ -95,6 +98,9 @@
 							<b>Alasan :</b> {{ $v->alasan }}
 						@endif
 						</td>
+						@if(Auth::user()->group==1)
+							<th width="100px">{{ $v->nama_faskes }}</th>
+						@endif
 						<td>
 							<a href="{{ url('/antrian/edit/'.$v->id) }}" class="btn btn-xs btn-primary btn-flat btn-block">Lihat Data<i class="icofont-download"></i></a>
 							<!-- <a href="{{ url('/antrian/hapus/'.$v->id ) }}" class="btn btn-xs btn-flat btn-danger btn-block"" onclick="return confirm('Anda Yakin ?');">Hapus</a> -->
