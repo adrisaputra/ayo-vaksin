@@ -12,6 +12,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\FaskesController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -71,6 +72,10 @@ Route::group(['middleware' => 'is.group'], function () {
 
     ## Info Kuota
     Route::get('/info_kuota', [InfoKuotaController::class, 'index']);
+
+    ## Info Kuota
+    Route::get('/laporan', [LaporanController::class, 'index']);
+    Route::post('/cetak_laporan', [LaporanController::class, 'cetak_laporan']);
 
     ## Setting
     Route::get('/setting', [SettingController::class, 'index']);
