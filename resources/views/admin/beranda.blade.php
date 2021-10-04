@@ -17,47 +17,105 @@
 	<div class="box-body">
 			<!-- Small boxes (Stat box) -->
 			<div class="row">
-				<div class="col-lg-4 col-xs-6">
-				<!-- small box -->
-					<div class="small-box bg-aqua">
-						<div class="inner">
-						<h3>{{ $jumlah_antrian }}</h3>
-
-						<p>Jumlah Antrian Hari Ini</p>
-						</div>
-						<div class="icon">
-						<i class="fa fa-inbox"></i>
-						</div>
-					</div>
-				</div>
-				<!-- ./col -->
-				<div class="col-lg-4 col-xs-6">
+				@if(Auth::user()->group==1)
+					<div class="col-lg-3 col-xs-6">
 					<!-- small box -->
-					<div class="small-box bg-green">
-						<div class="inner">
-						<h3>{{ $sudah_divaksin }}</h3>
+						<div class="small-box bg-primary">
+							<div class="inner">
+							<h3>{{ number_format($total_keseluruhan,0,",",".") }}</h3>
 
-						<p>Sudah Registrasi</p>
-						</div>
-						<div class="icon">
-						<i class="fa fa-inbox"></i>
+							<p>Total Keseluruhan</p>
+							</div>
+							<div class="icon">
+							<i class="fa fa-inbox"></i>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- ./col -->
-				<div class="col-lg-4 col-xs-6">
+					<div class="col-lg-3 col-xs-6">
 					<!-- small box -->
-					<div class="small-box bg-yellow">
-						<div class="inner">
-						<h3>{{ $belum_divaksin }}</h3>
+						<div class="small-box bg-aqua">
+							<div class="inner">
+							<h3>{{ number_format($jumlah_antrian,0,",",".") }}</h3>
 
-						<p>Belum Registrasi</p>
-						</div>
-						<div class="icon">
-						<i class="fa fa-inbox"></i>
+							<p>Jumlah Antrian Hari Ini</p>
+							</div>
+							<div class="icon">
+							<i class="fa fa-inbox"></i>
+							</div>
 						</div>
 					</div>
-				</div>
+					<!-- ./col -->
+					<div class="col-lg-3 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-green">
+							<div class="inner">
+							<h3>{{ number_format($sudah_divaksin,0,",",".") }}</h3>
+
+							<p>Sudah Registrasi</p>
+							</div>
+							<div class="icon">
+							<i class="fa fa-inbox"></i>
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-3 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-yellow">
+							<div class="inner">
+							<h3>{{ number_format($belum_divaksin,0,",",".") }}</h3>
+
+							<p>Belum Registrasi</p>
+							</div>
+							<div class="icon">
+							<i class="fa fa-inbox"></i>
+							</div>
+						</div>
+					</div>
+				@else
+					<div class="col-lg-4 col-xs-6">
+					<!-- small box -->
+						<div class="small-box bg-aqua">
+							<div class="inner">
+							<h3>{{ number_format($jumlah_antrian,0,",",".") }}</h3>
+
+							<p>Jumlah Antrian Hari Ini</p>
+							</div>
+							<div class="icon">
+							<i class="fa fa-inbox"></i>
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-4 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-green">
+							<div class="inner">
+							<h3>{{ number_format($sudah_divaksin,0,",",".") }}</h3>
+
+							<p>Sudah Registrasi</p>
+							</div>
+							<div class="icon">
+							<i class="fa fa-inbox"></i>
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+					<div class="col-lg-4 col-xs-6">
+						<!-- small box -->
+						<div class="small-box bg-yellow">
+							<div class="inner">
+							<h3>{{ number_format($belum_divaksin,0,",",".") }}</h3>
+
+							<p>Belum Registrasi</p>
+							</div>
+							<div class="icon">
+							<i class="fa fa-inbox"></i>
+							</div>
+						</div>
+					</div>
+				@endif
+				
 			</div>
 			<!-- /.row -->
 	</section>

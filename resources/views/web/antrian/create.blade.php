@@ -211,7 +211,7 @@
               <hr>
               <center>DATA VAKSIN PERTAMA</center>
 
-              <div class="row" style="margin-top:10px">
+              <!-- <div class="row" style="margin-top:10px">
                 <div class="col-md-3 form-group">
                   <p>No. Tiket</p>
                 </div>
@@ -219,7 +219,7 @@
                   <input type="text" name="no_tiket" class="form-control" value="{{ old('no_tiket') }}">
                   @if ($errors->has('no_tiket')) <label style="font-size:12px;color: #f44336;">{{ $errors->first('no_tiket') }}</label>@endif
                 </div>
-              </div>
+              </div> -->
 
               <div class="row" style="margin-top:10px">
                 <div class="col-md-3 form-group">
