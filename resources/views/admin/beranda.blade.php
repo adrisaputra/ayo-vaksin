@@ -24,7 +24,7 @@
 							<div class="inner">
 							<h3>{{ number_format($total_keseluruhan,0,",",".") }}</h3>
 
-							<p>Total Keseluruhan</p>
+							<p>Total Keseluruhan Yang Hadir</p>
 							</div>
 							<div class="icon">
 							<i class="fa fa-inbox"></i>
