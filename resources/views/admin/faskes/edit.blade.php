@@ -31,6 +31,19 @@
 						</div>
 					</div>
 					
+					<div class="form-group @if ($errors->has('status')) has-error @endif">
+						<label class="col-sm-2 control-label">{{ __('Status') }}</label>
+						<div class="col-sm-10">
+							@if ($errors->has('status'))<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ $errors->first('status') }}</label>@endif
+							<select class="form-control" name="status">
+								<option value="">- Pilih Status-</option>
+								<option value="0" @if($faskes->status=="0") selected @endif>Tidak Aktif</option>
+								<option value="1" @if($faskes->status=="1") selected @endif>Aktif</option>
+							</select>
+
+						</div>
+					</div>
+					
 					<div class="form-group @if ($errors->has('group')) has-error @endif">
 						<label class="col-sm-2 control-label"></label>
 						<div class="col-sm-10">

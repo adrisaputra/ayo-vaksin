@@ -9,7 +9,7 @@ class Faskes extends Model
 {
     // use HasFactory;
 	protected $table = 'faskes_tbl';
-	protected $fillable =[  'nama_faskes','jumlah_antrian'];
+	protected $fillable =[  'nama_faskes','jumlah_antrian','status'];
 
 
 	public function antrian()

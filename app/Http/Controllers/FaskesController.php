@@ -47,14 +47,14 @@ class FaskesController extends Controller
 	public function store(Request $request)
     {
 		
-    	$this->validate($request, [
+    		$this->validate($request, [
 		    'nama_faskes' => 'required'
-            
-        ]);
+        	]);
 
 		$input['nama_faskes'] = $request->nama_faskes;
+		$input['status'] = 1;
 		
-        Faskes::create($input);
+        	Faskes::create($input);
 		
 		return redirect('/faskes')->with('status','Data Tersimpan');
 
@@ -64,8 +64,8 @@ class FaskesController extends Controller
 	public function edit(Faskes $faskes)
 	{
 		$view=view('admin.faskes.edit', compact('faskes'));
-        $view=$view->render();
-        return $view;
+        	$view=$view->render();
+        	return $view;
 	}
 	
 	## Edit Data
@@ -77,7 +77,7 @@ class FaskesController extends Controller
 
 		$faskes->fill($request->all());
 		
-    	$faskes->save();
+    		$faskes->save();
 		
 		return redirect('/faskes')->with('status', 'Data Berhasil Diubah');
 	}

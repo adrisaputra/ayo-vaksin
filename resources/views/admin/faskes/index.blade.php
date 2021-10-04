@@ -46,13 +46,21 @@
 				<table class="table table-bordered">
 					<tr style="background-color: gray;color:white">
 						<th style="width: 60px">No</th>
-						<th>Gambar</th>
+						<th>Nama Faskes</th>
+						<th>Status</th>
 						<th style="width: 20%">#aksi</th>
 					</tr>
 					@foreach($faskes as $v)
 					<tr>
 						<td>{{ ($faskes ->currentpage()-1) * $faskes ->perpage() + $loop->index + 1 }}</td>
 						<td>{{ $v->nama_faskes}}
+						<td>
+							@if ($v->status==0)
+								<span class="label label-danger">Tidak Aktif</span>
+							@else
+								<span class="label label-success">Aktif</span>
+							@endif
+						</td>
 						</td>
 						<td>
 							<a href="{{ url('/faskes/edit/'.$v->id ) }}" class="btn btn-xs btn-flat btn-warning">Edit</a>
