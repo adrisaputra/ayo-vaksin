@@ -37,9 +37,10 @@ class LaporanController extends Controller
         $sheet->getColumnDimension('C')->setWidth(20);
         $sheet->getColumnDimension('D')->setWidth(40);
         $sheet->getColumnDimension('E')->setWidth(16);
-        $sheet->getColumnDimension('F')->setWidth(17);
-        $sheet->getColumnDimension('G')->setWidth(12);
-        $sheet->getColumnDimension('H')->setWidth(30);
+        $sheet->getColumnDimension('F')->setWidth(50);
+        $sheet->getColumnDimension('G')->setWidth(17);
+        $sheet->getColumnDimension('H')->setWidth(12);
+        $sheet->getColumnDimension('I')->setWidth(30);
         
         $tgl = substr($request->tanggal,3,2);
         $bln = substr($request->tanggal,0,2);
@@ -61,19 +62,20 @@ class LaporanController extends Controller
         $sheet->getStyle('A1')->getFont()->setBold(true);
 
         
-        $sheet->mergeCells('A1:H1');
-        $sheet->getStyle('A1:H1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->mergeCells('A1:I1');
+        $sheet->getStyle('A1:I1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         
         $sheet->setCellValue('A3', 'NO');
         $sheet->setCellValue('B3', 'NO. URUT');
         $sheet->setCellValue('C3', 'NIK');
         $sheet->setCellValue('D3', 'NAMA');
         $sheet->setCellValue('E3', 'TANGGAL LAHIR');
-        $sheet->setCellValue('F3', 'TANGGAL VAKSIN');
-        $sheet->setCellValue('G3', 'VAKSIN KE');
-        $sheet->setCellValue('H3', 'FASKES');
-        $sheet->getStyle('A3:H3')->getFont()->setBold(true);
-        $sheet->getStyle('A3:H3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        $sheet->setCellValue('F3', 'ALAMAT');
+        $sheet->setCellValue('G3', 'TANGGAL VAKSIN');
+        $sheet->setCellValue('H3', 'VAKSIN KE');
+        $sheet->setCellValue('I3', 'FASKES');
+        $sheet->getStyle('A3:I3')->getFont()->setBold(true);
+        $sheet->getStyle('A3:I3')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
         
         $rows = 4;
         $no = 1;
@@ -102,25 +104,27 @@ class LaporanController extends Controller
             $sheet->setCellValue('E' . $rows, date('d-m-Y', strtotime($v->tanggal_lahir)));
             $sheet->getStyle('E' . $rows)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-            $sheet->setCellValue('F' . $rows, date('d-m-Y', strtotime($v->tanggal)));
-            $sheet->getStyle('F' . $rows)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $sheet->setCellValue('F' . $rows,$v->alamat);
+
+            $sheet->setCellValue('G' . $rows, date('d-m-Y', strtotime($v->tanggal)));
+            $sheet->getStyle('G' . $rows)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
             if($v->vaksin_ke==1){
-                $sheet->setCellValue('G' . $rows, 'Vaksin 1');
+                $sheet->setCellValue('H' . $rows, 'Vaksin 1');
             } else if($v->vaksin_ke==3){
-                $sheet->setCellValue('G' . $rows, 'Vaksin 1');
+                $sheet->setCellValue('H' . $rows, 'Vaksin 1');
             }else if($v->vaksin_ke==2){
-                $sheet->setCellValue('G' . $rows, 'Vaksin 2');
+                $sheet->setCellValue('H' . $rows, 'Vaksin 2');
             }
             $sheet->getStyle('H' . $rows)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 								
-            $sheet->setCellValue('H' . $rows, $v->nama_faskes);
-            $sheet->getStyle('H' . $rows)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+            $sheet->setCellValue('I' . $rows, $v->nama_faskes);
+            $sheet->getStyle('I' . $rows)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
             $rows++;
         }
       
-        $sheet->getStyle('A3:H'.($rows-1))->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        $sheet->getStyle('A3:I'.($rows-1))->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
         $type = 'xlsx';
         $fileName = "Laporan.".$type;

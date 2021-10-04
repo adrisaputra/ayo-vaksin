@@ -36,8 +36,6 @@ class ProfilController extends Controller
          $this->validate($request, [
             'nama_dinas' => 'required',
             'alamat' => 'required',
-            'telp' => 'required|numeric',
-            'email' => 'required'
         ]);
 
 		$profil->fill($request->all());

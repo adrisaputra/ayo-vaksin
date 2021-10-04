@@ -72,8 +72,8 @@
             <h3>{{ $profil[0]->nama_dinas }}</h3>
             <p>
               {{ $profil[0]->alamat }} <br>
-              <strong>Telepon:</strong>{{ $profil[0]->telp }}<br>
-              <strong>Email:</strong> {{ $profil[0]->email }}<br>
+              <strong>Facebook:</strong> {{ $profil[0]->telp }}<br>
+              <strong>Instagram:</strong> {{ $profil[0]->email }}<br>
               <strong>Support By : Anaqia Project</strong><br>
             </p>
           </div>

@@ -40,7 +40,7 @@
 					</div>
 					
 					<div class="form-group @if ($errors->has('telp')) has-error @endif">
-						<label class="col-sm-2 control-label">{{ __('Telepon') }}</label>
+						<label class="col-sm-2 control-label">{{ __('Facebook') }}</label>
 						<div class="col-sm-10">
 							@if ($errors->has('telp'))<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ $errors->first('telp') }}</label>@endif
 							<input type="text" class="form-control" placeholder="Telepon" name="telp" value="{{ $profil->telp }}" >
@@ -48,10 +48,10 @@
 					</div>
 					
 					<div class="form-group @if ($errors->has('email')) has-error @endif">
-						<label class="col-sm-2 control-label">{{ __('Email') }}</label>
+						<label class="col-sm-2 control-label">{{ __('Instagram') }}</label>
 						<div class="col-sm-10">
 							@if ($errors->has('email'))<label class="control-label" for="inputError"><i class="fa fa-times-circle-o"></i> {{ $errors->first('email') }}</label>@endif
-							<input type="email" class="form-control" placeholder="Email" name="email" value="{{ $profil->email }}" >
+							<input type="text" class="form-control" placeholder="Email" name="email" value="{{ $profil->email }}" >
 						</div>
 					</div>
 					

@@ -28,8 +28,8 @@
 						<th style="width:1px">No</th>
 						<th style="width:30%;">Nama Dinas</th>
 						<th style="width:30%;">Alamat</th>
-						<th style="width:15%;">Telepon</th>
-						<th style="width:15%;">Email</th>
+						<th style="width:15%;">Facebook</th>
+						<th style="width:15%;">Instagram</th>
 						<th style="width:10%;">Aksi</th>
 					</tr>
 					@foreach($profil as $v)
