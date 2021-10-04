@@ -56,7 +56,7 @@ class BerandaController extends Controller
         $setting = DB::table('setting_tbl')->get()->toArray();
         $title = "Registrasi Vaksin";
         $profil = DB::table('profil_tbl')->where('id',1)->get()->toArray();
-        $faskes = Faskes::get();
+        $faskes = Faskes::where('status',1)->get();
         $view=view('web.antrian.create', compact('title','profil','faskes'));
         $view=$view->render();
         return $view;
