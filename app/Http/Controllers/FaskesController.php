@@ -18,7 +18,7 @@ class FaskesController extends Controller
     ## Tampikan Data
     public function index()
     {
-    	$faskes = DB::table('faskes_tbl')->orderBy('id','DESC')->paginate(10)->onEachSide(1);
+    	$faskes = DB::table('faskes_tbl')->orderBy('id','DESC')->paginate(30)->onEachSide(1);
 		return view('admin.faskes.index',compact('faskes'));
  
     }
@@ -31,7 +31,7 @@ class FaskesController extends Controller
 				where(function ($query) use ($faskes) {
 					$query->where('nama_faskes', 'LIKE', '%'.$faskes.'%');
 				})
-                ->orderBy('id','DESC')->paginate(10)->onEachSide(1);
+                ->orderBy('id','DESC')->paginate(30)->onEachSide(1);
 		return view('admin.faskes.index',compact('faskes'));
     }
 	
