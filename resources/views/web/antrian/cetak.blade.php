@@ -1,7 +1,7 @@
 <html>
 <head>
   <style>
-    @page { size: 15cm 12cm landscape; }
+    @page { size: 15cm 12cm protait; }
   </style>
 </head>
 <body>
